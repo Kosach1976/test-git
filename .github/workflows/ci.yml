@@ -2,17 +2,23 @@
 
 on:
   push:
-    branches: [main, develop]
-  pull_request:
     branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: List files
-        run: ls -la
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Deploy successful!"
+            echo "Server: $(hostname)"
+            echo "Date: $(date)"
