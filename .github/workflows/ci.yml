@@ -19,6 +19,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "Deploy successful!"
-            echo "Server: $(hostname)"
-            echo "Date: $(date)"
+            cd /root/deploy-test
+            echo "version 2.0 - deployed at $(date)" > version.txt
+            echo "Deploy done!"
+            cat version.txt
